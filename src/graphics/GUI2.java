@@ -1,4 +1,4 @@
-package methods;
+package graphics;
 
 import java.awt.EventQueue;
 

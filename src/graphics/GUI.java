@@ -1,4 +1,4 @@
-package methods;
+package graphics;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
