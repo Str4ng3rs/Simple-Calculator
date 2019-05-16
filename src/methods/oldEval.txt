@@ -1,0 +1,94 @@
+
+  /*public static double paren(String string) {
+    String s = string.replaceAll("\\s","");;
+    int count = 0;
+    double num;
+    int indexOfParenStatement = 0;
+    int indexOfFirstPeriod = 0;
+    String S = "";
+    if (string.indexOf('(') == -1 && string.indexOf(')') == -1) { //both () do not exist
+
+      return evaluate(string);
+
+      }else if (s.indexOf(')') == -1 && s.indexOf('(') != -1) { // only ( exists
+        if (s.length() - 1 > s.indexOf('(')) { //checks for if '(' is not the last thing on the string
+          if (s.indexOf('(') == s.lastIndexOf('(')) { //there is only one '('
+            if (s.length() - 1 > s.indexOf('(')) { //Checks for if '(' is the last char on the string
+              return (evaluate(s.substring(0, s.indexOf('('))));
+            }else if (s.indexOf('(') > 0) { //it is not the last thing on the string and it is not the first thing on the string
+              if (Character.isDigit(s.charAt(s.indexOf('(') - 1)) || (s.charAt(s.indexOf('(') - 1) == '.')) { /*|| string.charAt(string.indexOf('(') - 1) == ''
+                if (Character.isDigit(s.charAt(s.indexOf('(') - 1))) {
+                  for (int i = s.indexOf('(') - 1; i >= 0; i--) {
+                    if (Character.isDigit(s.charAt(i)) || (s.charAt(i) == '.')) {
+                      if (s.charAt(i) == '.') {
+                        count ++;
+                      }
+                      if (count > 1) {
+                        break;
+                      }
+                      S = (String)s.charAt(i) + S;
+                      } else {
+                        break;
+                      }
+                    }
+                  }else if (s.charAt(s.indexOf('(') - 1) == '.') {
+                    indexOfPeriod = s.indexOf('(') - 1;
+                    for (int i = s.indexOf('(') - 2; i >= 0; i--) {
+                      if (s.charAt(i) == '.') {
+                        indexOfPeriod = i;
+                      }
+                      if (Character.isDigit(s.charAt(i)) || s.charAt(i) == '.') {
+                        S = (String)s.charAt(i) + S;
+                      }else {
+                        break;
+                      }
+                    }
+                    if (!S.equals(".")) {
+                      num = Double.parseDouble(S);
+                    }else {
+                      num = 0;
+                    }
+
+                  }
+                }else {
+
+                }
+              }
+            }
+            if (string.indexOf('(') == 0) { //if '(' is the first char in the String
+            }
+              return (evaluate(string.substring(0, string.indexOf('('))) + (evaluate(paren(string.substring(string.indexOf('(') + 1)))));
+
+                        } else { //if ( is at end of string
+
+                            return evaluate(string.substring(0, string.indexOf('(')));
+
+                        }
+
+                    } else if (string.indexOf('(') == -1 && string.indexOf(')') != -1) { //only ) exists
+
+                        System.out.println("Error: Open parentheses missing!");
+                        return -1;
+
+                    } else { //both () exist
+
+                        if (string.indexOf('(') == string.lastIndexOf('(') && string.indexOf(')') == string.lastIndexOf(')')) { //there is only 1 ( and 1 )
+
+                            if (string.length() - 1 > string.indexOf(')')) { //as long as ) is
+
+                                return (evaluate(string.substring(0, string.indexOf('('))) + evaluate(string.substring(string.indexOf('('), string.indexOf(')'))) + evaluate(paren(string.substring(string.indexOf(')') + 1))));
+
+                            } else {
+
+                                return (evaluate(string.substring(0, string.indexOf('('))) + evaluate(string.substring(string.indexOf('('), string.indexOf(')'))));
+                            }
+
+                        } else if (string.indexOf('(') != string.lastIndexOf('(') && string.indexOf(')') == string.lastIndexOf(')')) { //multiple ( but only one )
+
+
+                        }
+                    }
+                }*/
+                public static void exponent(String string) {
+
+                }
