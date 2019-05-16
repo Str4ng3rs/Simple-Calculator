@@ -3,12 +3,9 @@ package graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.*;
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.border.Border;
 
-import graphics.Circle;
 import net.miginfocom.swing.MigLayout;
 
 public class GUI {
@@ -49,7 +46,7 @@ public class GUI {
 		userInterface.add(expression,"alignx right, aligny center");
 
 		JPanel buttonPanel = new JPanel(new MigLayout("", "-1[:96px:]", "-1[66px]"));
-		window.add(buttonPanel, BorderLayout.WEST);
+		window.add(buttonPanel, BorderLayout.CENTER);
 		buttonPanel.setFocusable(true);
 
 		/*Circle circle = new Circle();
