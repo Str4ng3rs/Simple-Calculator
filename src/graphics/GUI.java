@@ -41,9 +41,10 @@ public class GUI {
 		JPanel userInterface = new JPanel(new MigLayout("", "[:100%:]", "[50px]"));
 		window.add(userInterface, BorderLayout.NORTH);
 
-		expression = new JLabel("",SwingConstants.RIGHT);
+		expression = new JLabel("0",SwingConstants.RIGHT);
 		expression.setFont(new Font("Segoe UI",Font.BOLD,30));
 		userInterface.add(expression,"alignx right, aligny center");
+		final Boolean[] expressionIsZero = {true};
 
 		JPanel buttonPanel = new JPanel(new MigLayout("", "-1[:96px:]", "-1[66px]"));
 		window.add(buttonPanel, BorderLayout.CENTER);
@@ -60,7 +61,7 @@ public class GUI {
 		final Boolean[] expressionIsNegative = {false};
 		plusMinus.setFont(new Font("Segoe UI",Font.BOLD,33));
 		plusMinus.addActionListener(action -> {
-			if (!expressionIsNegative[0]){
+			if (!expressionIsNegative[0] && !expressionIsZero[0]){
 				expression.setText('-' + expression.getText());
 				expressionIsNegative[0] = true;
 			}else {
@@ -76,7 +77,7 @@ public class GUI {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_F9){
-					if (!expressionIsNegative[0]){
+					if (!expressionIsNegative[0] && !expressionIsZero[0]){
 						expression.setText("-" + expression.getText());
 						expressionIsNegative[0] = true;
 					}else {
@@ -98,12 +99,14 @@ public class GUI {
 		zero.setPreferredSize(new Dimension(96,66));
 		zero.setFont(new Font("Segoe UI",Font.BOLD,33));
 		zero.addActionListener(action -> {
-			expression.setText(expression.getText()+'0');
+			if (!expressionIsZero[0]){
+				expression.setText(expression.getText()+'0');
+			}
 		});
 		buttonPanel.addKeyListener(new KeyListener() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				if (e.getKeyChar() == '0'){
+				if (e.getKeyChar() == '0' && !expressionIsZero[0]){
 					expression.setText(expression.getText()+'0');
 				}
 			}
@@ -157,13 +160,21 @@ public class GUI {
 		one.setPreferredSize(new Dimension(96,66));
 		one.setFont(new Font("Segoe UI",Font.BOLD,33));
 		one.addActionListener(action -> {
-			expression.setText(expression.getText()+'1');
+			if (expressionIsZero[0]){
+				expressionIsZero[0] = false;
+				expression.setText("1");
+			}else {
+				expression.setText(expression.getText()+'1');
+			}
 		});
 		buttonPanel.addKeyListener(new KeyListener() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				if (e.getKeyChar() == '1'){
+				if (e.getKeyChar() == '1' && !expressionIsZero[0]){
 					expression.setText(expression.getText()+'1');
+				} else if (e.getKeyChar() == '1' && expressionIsZero[0]){
+					expression.setText("1");
+					expressionIsZero[0] = false;
 				}
 			}
 
@@ -184,6 +195,7 @@ public class GUI {
 		two.setFont(new Font("Segoe UI",Font.BOLD,33));
 		two.setPreferredSize(new Dimension(96,66));
 		two.addActionListener(action -> {
+
 			expression.setText(expression.getText()+'2');
 		});
 		buttonPanel.addKeyListener(new KeyListener() {
