@@ -21,7 +21,7 @@ import java.awt.Window.Type;
 
 /*
 *
-* Reference GUI using WindowBuilder by Eclipse
+* Reference GUIBak using WindowBuilder by Eclipse
 *
 */
 

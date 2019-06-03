@@ -1,22 +1,16 @@
 package graphics;
 
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import javax.swing.text.StyleConstants;
+import java.awt.*;
+import javax.swing.*;
 
-import structures.Button;
 import structures.NumberButton;
 
 import net.miginfocom.swing.MigLayout;
 
-public class GUI {
+public class GUIBak {
 
 	private static final long serialVersionUID = 1L;
 	private JFrame window;
@@ -25,11 +19,11 @@ public class GUI {
 	private final Font segoeUI = new Font("Segoe UI", Font.BOLD, 33);
 	private final Dimension defaultButtonSize = new Dimension(96, 66);
 
-	public GUI(String windowTitle, int x, int y, int width, int height) {
+	public GUIBak(String windowTitle, int x, int y, int width, int height) {
 		createWindow(windowTitle, x, y, width, height);
 	}
 
-	public GUI(String windowTitle) {
+	public GUIBak(String windowTitle) {
 		createWindow(windowTitle, 320, 180, 1280, 720);
 	}
 
@@ -48,16 +42,15 @@ public class GUI {
 		console.setVisible(false);
 		consolePanel.add(console, "cell 0 0,alignx center,aligny center");
 
-
 		JPanel userInterface = new JPanel(new MigLayout("", "[:100%:]", "[50px]"));
 		window.add(userInterface, BorderLayout.NORTH);
 
 		entry = new JLabel("0", SwingConstants.RIGHT);
 		entry.setFont(segoeUI.deriveFont(30f));
 		userInterface.add(entry, "alignx right, aligny center");
-		final boolean[] entryIsZero = {true};
+		final Boolean[] entryIsZero = {true};
 
-		JPanel buttonPanel = new JPanel(new MigLayout("gap 0px 0px", "[96px:96px:96px]", "[66px:66px:66px]"));
+		JPanel buttonPanel = new JPanel(new MigLayout("", "-1[:96px:]", "-1[:66px:]"));
 		window.add(buttonPanel, BorderLayout.CENTER);
 		buttonPanel.setFocusable(true);
 
@@ -66,8 +59,13 @@ public class GUI {
 		//circle.setForeground(new Color(0,44,128,250)); //change circle foreground
 		//System.out.println(screenSize.width + " + " + window.getWidth());
 
-		Button decimal = new Button(".");
-		final boolean[] decimalInEntry = {false};
+		NumberButton newButton = new NumberButton();
+
+
+		JButton decimal = new JButton(".");
+		decimal.setPreferredSize(defaultButtonSize);
+		final Boolean[] decimalInEntry = {false};
+		decimal.setFont(segoeUI);
 		decimal.addActionListener(action -> {
 			if (!decimalInEntry[0] && entryIsZero[0]) {
 				entry.setText("0.");
@@ -78,15 +76,23 @@ public class GUI {
 			}
 		});
 		buttonPanel.add(decimal, "cell 2 4");
+		decimal.setFocusable(false);
+		decimal.setFocusPainted(false);
 
-		Button zero = new Button("0");
+		JButton zero = new JButton("0");
+		zero.setPreferredSize(defaultButtonSize);
+		zero.setFont(segoeUI);
 		zero.addActionListener(action -> {
 			if (!entryIsZero[0]) entry.setText(entry.getText() + '0');
 		});
 		buttonPanel.add(zero, "cell 1 4");
+		zero.setFocusable(false);
+		zero.setFocusPainted(false);
 
-		Button plusMinus = new Button("±");
-		final boolean[] entryIsNegative = {false};
+		JButton plusMinus = new JButton("�");
+		plusMinus.setPreferredSize(defaultButtonSize);
+		final Boolean[] entryIsNegative = {false};
+		plusMinus.setFont(segoeUI);
 		plusMinus.addActionListener(action -> {
 			if (!entryIsNegative[0] && !entryIsZero[0]) {
 				entry.setText('-' + entry.getText());
@@ -97,47 +103,160 @@ public class GUI {
 			}
 		});
 		buttonPanel.add(plusMinus, "cell 0 4");
+		plusMinus.setFocusable(false);
+		plusMinus.setFocusPainted(false);
 
-		Button one = new Button("1");
-		one.addNumberAction(entry, entryIsZero, decimalInEntry, 1);
+		JButton one = new JButton("1");
+		one.setPreferredSize(defaultButtonSize);
+		one.setFont(segoeUI);
+		one.addActionListener(action -> {
+			if (entryIsZero[0] && !decimalInEntry[0]) {
+				entryIsZero[0] = false;
+				entry.setText("1");
+			} else {
+				entry.setText(entry.getText() + '1');
+				entryIsZero[0] = false;
+			}
+		});
 		buttonPanel.add(one, "cell 0 3");
+		one.setFocusable(false);
+		one.setFocusPainted(false);
 
-		Button two = new Button("2");
-		two.addNumberAction(entry, entryIsZero, decimalInEntry, 2);
+		JButton two = new JButton("2");
+		two.setFont(segoeUI);
+		two.setPreferredSize(defaultButtonSize);
+		two.addActionListener(action -> {
+			if (entryIsZero[0] && !decimalInEntry[0]) {
+				entryIsZero[0] = false;
+				entry.setText("2");
+			} else {
+				entry.setText(entry.getText() + '2');
+				entryIsZero[0] = false;
+			}
+		});
 		buttonPanel.add(two, "cell 1 3");
+		two.setFocusable(false);
+		two.setFocusPainted(false);
 
-		Button three = new Button("3");
-		three.addNumberAction(entry, entryIsZero, decimalInEntry, 3);
+		JButton three = new JButton("3");
+		three.setPreferredSize(defaultButtonSize);
+		three.setFont(segoeUI);
+		three.addActionListener(action -> {
+			if (entryIsZero[0] && !decimalInEntry[0]) {
+				entryIsZero[0] = false;
+				entry.setText("3");
+			} else {
+				entry.setText(entry.getText() + '3');
+				entryIsZero[0] = false;
+			}
+		});
 		buttonPanel.add(three, "cell 2 3");
+		three.setFocusable(false);
+		three.setFocusPainted(false);
 
-		Button four = new Button("4");
-		four.addNumberAction(entry, entryIsZero, decimalInEntry, 4);
+		JButton four = new JButton("4");
+		four.setPreferredSize(defaultButtonSize);
+		four.setFont(segoeUI);
+		four.addActionListener(action -> {
+			if (entryIsZero[0] && !decimalInEntry[0]) {
+				entryIsZero[0] = false;
+				entry.setText("4");
+			} else {
+				entry.setText(entry.getText() + '4');
+				entryIsZero[0] = false;
+			}
+		});
 		buttonPanel.add(four, "cell 0 2");
+		four.setFocusable(false);
+		four.setFocusPainted(false);
 
-		Button five = new Button("5");
-		/*font size 33
-		five.setFont(new Font("Segoe UI",Font.BOLD,33));*/
-		five.addNumberAction(entry, entryIsZero, decimalInEntry, 5);
+		JButton five = new JButton("5");
+		five.setPreferredSize(defaultButtonSize);
+		five.setMaximumSize(defaultButtonSize);
+		five.setMinimumSize(defaultButtonSize);
+		//font size 33
+		five.setFont(new Font("Segoe UI",Font.BOLD,33));
+		five.addActionListener(action -> {
+			if (entryIsZero[0] && !decimalInEntry[0]) {
+				entryIsZero[0] = false;
+				entry.setText("5");
+			} else {
+				entry.setText(entry.getText() + '5');
+				entryIsZero[0] = false;
+			}
+		});
 		buttonPanel.add(five, "cell 1 2");
+		five.setFocusable(false);
+		five.setFocusPainted(false);
 
-		Button six = new Button("6");
-		six.addNumberAction(entry, entryIsZero, decimalInEntry,6);
+		JButton six = new JButton("6");
+		six.setPreferredSize(defaultButtonSize);
+		six.setFont(segoeUI);
+		six.addActionListener(action -> {
+			if (entryIsZero[0] && !decimalInEntry[0]) {
+				entryIsZero[0] = false;
+				entry.setText("6");
+			} else {
+				entry.setText(entry.getText() + '6');
+				entryIsZero[0] = false;
+			}
+		});
 		buttonPanel.add(six, "cell 2 2");
+		six.setFocusable(false);
+		six.setFocusPainted(false);
 
-		Button seven = new Button("7");
-		seven.addNumberAction(entry, entryIsZero, decimalInEntry, 7);
+		JButton seven = new JButton("7");
+		seven.setPreferredSize(defaultButtonSize);
+		seven.setFont(segoeUI);
+		seven.addActionListener(action -> {
+			if (entryIsZero[0] && !decimalInEntry[0]) {
+				entryIsZero[0] = false;
+				entry.setText("7");
+			} else {
+				entry.setText(entry.getText() + '7');
+				entryIsZero[0] = false;
+			}
+		});
 		buttonPanel.add(seven, "cell 0 1");
+		seven.setFocusable(false);
+		seven.setFocusPainted(false);
 
-		Button eight = new Button("8");
-		eight.addNumberAction(entry, entryIsZero, decimalInEntry, 8);
+		JButton eight = new JButton("8");
+		eight.setPreferredSize(defaultButtonSize);
+		eight.setFont(segoeUI);
+		eight.addActionListener(action -> {
+			if (entryIsZero[0] && !decimalInEntry[0]) {
+				entryIsZero[0] = false;
+				entry.setText("8");
+			} else {
+				entry.setText(entry.getText() + '8');
+				entryIsZero[0] = false;
+			}
+		});
 		buttonPanel.add(eight, "cell 1 1");
+		eight.setFocusable(false);
+		eight.setFocusPainted(false);
 
-		Button nine = new Button("9");
-		nine.addNumberAction(entry, entryIsZero, decimalInEntry, 9);
+		JButton nine = new JButton("9");
+		nine.setPreferredSize(defaultButtonSize);
+		nine.setFont(segoeUI);
+		nine.addActionListener(action -> {
+			if (entryIsZero[0] && !decimalInEntry[0]) {
+				entryIsZero[0] = false;
+				entry.setText("9");
+			} else {
+				entry.setText(entry.getText() + '9');
+				entryIsZero[0] = false;
+			}
+		});
 		buttonPanel.add(nine, "cell 2 1");
+		nine.setFocusable(false);
+		nine.setFocusPainted(false);
 
-		Button clearEntry = new Button("CE");
-		//clearEntry.setFont(clearEntry.getFont().deriveFont(Font.PLAIN,33f));
+		JButton clearEntry = new JButton("CE");
+		clearEntry.setPreferredSize(defaultButtonSize);
+		//font size 20
+		clearEntry.setFont(segoeUI.deriveFont(Font.PLAIN,33f));
 		clearEntry.addActionListener(action -> {
 			entry.setText("0");
 			entryIsZero[0] = true;
@@ -145,16 +264,26 @@ public class GUI {
 			decimalInEntry[0] = false;
 		});
 		buttonPanel.add(clearEntry, "cell 0 0");
+		clearEntry.setFocusable(false);
+		clearEntry.setFocusPainted(false);
 
-		Button clear = new Button("C");
-		//clear.setFont(clear.getFont().deriveFont(Font.PLAIN,33f));
+
+
+		JButton clear = new JButton("C");
+		clear.setPreferredSize(defaultButtonSize);
+		clear.setFont(segoeUI.deriveFont(Font.PLAIN,33f));
 		clear.addActionListener(action -> clear());
 		buttonPanel.add(clear, "cell 1 0");
+		clear.setFocusable(false);
+		clear.setFocusPainted(false);
 
-		Button delete = new Button("⌫");
-		//delete.setFont(new Font("Dialog", Font.PLAIN, 33));
-		delete.addActionListener(action -> delete(entryIsZero, entryIsNegative, decimalInEntry, entry));
+		JButton delete = new JButton("?");
+		delete.setPreferredSize(defaultButtonSize);
+		delete.setFont(segoeUI.deriveFont(Font.PLAIN,33f));
+		delete.addActionListener(action-> delete(entryIsZero, entryIsNegative, decimalInEntry, entry));
 		buttonPanel.add(delete, "cell 2 0");
+		delete.setFocusable(false);
+		delete.setFocusPainted(false);
 
 		buttonPanel.addKeyListener(new KeyListener() {
 			//KeyListeners for chars
@@ -282,18 +411,18 @@ public class GUI {
 		});
 	}
 
-	private static void delete(boolean[] entryIsZero, boolean[] entryIsNegative, boolean[] decimalInEntry, JLabel entry) {
-		if (!entryIsZero[0]) {
-			if (entry.getText().charAt(entry.getText().length() - 1) == '.') {
+	private static void delete(Boolean[] entryIsZero, Boolean[] entryIsNegative, Boolean[] decimalInEntry, JLabel entry) {
+		if (!entryIsZero[0]){
+			if (entry.getText().charAt(entry.getText().length()-1) == '.'){
 				decimalInEntry[0] = false;
 			}
-			entry.setText(entry.getText().substring(0, entry.getText().length() - 1));
-			if (entry.getText().length() == 1 && entryIsNegative[0]) {
+			entry.setText(entry.getText().substring(0,entry.getText().length()-1));
+			if (entry.getText().length() == 1 && entryIsNegative[0]){
 				entry.setText("0");
 				entryIsZero[0] = true;
 				entryIsNegative[0] = false;
 			}
-			if (entry.getText().length() == 0 && !entryIsNegative[0]) {
+			if (entry.getText().length() == 0 && !entryIsNegative[0]){
 				entry.setText("0");
 				entryIsZero[0] = true;
 			}
@@ -304,7 +433,7 @@ public class GUI {
 		System.out.println("CALCULATOR CLEARED");
 	}
 
-	private void disableButtons() {
+	private void disableButtons(){
 
 	}
 

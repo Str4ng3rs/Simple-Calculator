@@ -5,7 +5,7 @@ import java.math.*;
 
 /*
 *
-* Evaluate class used to calculate inputs from GUI.
+* Evaluate class used to calculate inputs from GUIBak.
 *
 */
 
